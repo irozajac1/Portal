@@ -11,7 +11,7 @@ namespace WebApplication1.Models
         public string Title { get; set; }
         public string Group { get; set; }
         public string Link { get; set; }
-        public List<Attachment>Files { get; set; }
+        public Attachment Files { get; set; }
         public string Email { get; set; }
         public bool IsApproved { get; set; }
         public bool IsDeleted { get; set; }

@@ -27,16 +27,12 @@ namespace WebApplication1.Controllers
             this.service = service;
         }
 
-
-
         // GET: api/Messages
         [HttpGet]
         public async Task<ActionResult<IList<Message>>> GetMessage()
         {
             return  service.GetMessages();
         }
-
-
 
         // GET: api/Messages/5
         [HttpGet("notapprovedmessagescount")]
@@ -47,30 +43,23 @@ namespace WebApplication1.Controllers
             return Ok(message);
         }
 
-        // PUT: api/Messages/update/5
-        [HttpPut("update/{id}")]
-        public async Task<IActionResult> PutMessage(int id, Message message)
+        // PUT: api/Messages/update
+        [HttpPut("update")]
+        public async Task<IActionResult> PutMessage(Guid id, Message message)
         {
+            service.UpdateMessage(id, message);
             return Ok();
         }
 
         [HttpGet("{id}")]
         public IActionResult Download(Guid id)
         {
-            service.DownloadFile(id);
-            return Ok();
+            return service.DownloadFile(id);
         }
-
-        private string GetType(string path)
-        {
-            return service.GetType(path);
-        }
-
-
 
         // POST: api/Messages/SendMessage
         [HttpPost("SendMessage")]
-        public IActionResult PostFiles([FromBody] MessageRequest request)
+        public IActionResult PostFiles([FromBody] LiteratureRequest request)
         {
             service.SendMessage(request);
             return Ok();
@@ -78,38 +67,18 @@ namespace WebApplication1.Controllers
         [HttpPost("LikeMessage")]
         public async void LikeMessage([FromBody] LikeRequest likeRequest)
         {
-            //var message = _context.Message.Include("UserLikeList").SingleOrDefault(x => x.MessageId == likeRequest.MessageId);
-
-            //var isLiked = message.UserLikeList.Exists(x => x.Email == likeRequest.Email);
-
-            //if (isLiked == false)
-            //{
-            //    message.LikeCounter += 1;
-
-            //    List<UserLike> userLikes = new List<UserLike>();
-            //    UserLike userLike = new UserLike()
-            //    {
-            //        Id = new Guid(),
-            //        Email = likeRequest.Email,
-            //        Liked = true,
-            //    };
-            //    userLikes.Add(userLike);
-            //    message.UserLikeList = userLikes;
-
-            //    await _context.SaveChangesAsync();
-            //}
+            service.LikeMessage(likeRequest);
 
         }
 
         [HttpPut("DislikeMessage")]
         public async void DislikeMessage([FromBody] LikeRequest likeRequest)
         {
-            //var message = _context.Message.Include("UserLikeList").SingleOrDefault(x => x.MessageId == likeRequest.MessageId);
-            //message.LikeCounter -= 1;
+            service.DislikeMessage(likeRequest);
         }
 
         // DELETE: api/Messages/deleteMessage/5
-        [HttpDelete("deleteMessage/{id}")]
+        [HttpDelete("deleteMessage")]
         public async Task<ActionResult<Message>> DeleteMessage(Guid id)
         {
             service.DeleteMessage(id);
@@ -118,11 +87,5 @@ namespace WebApplication1.Controllers
         }
 
 
-
-
-        private bool MessageExists(Guid id)
-        {
-            return service.MessageExists(id);
-        }
     }
 }

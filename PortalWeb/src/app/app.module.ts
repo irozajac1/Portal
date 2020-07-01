@@ -40,6 +40,13 @@ import { OpenMessageComponent } from "./components/open-message/open-message.com
 import { NgxFileDropModule } from "ngx-file-drop";
 import { MatChipsModule } from "@angular/material/chips";
 import { MessagesComponent } from './components/messages/messages.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { DocumentationComponent } from './components/documentation/documentation.component';
+import { NewsComponent } from './components/news/news.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
+import { AboutComponent } from './components/about/about.component';
+import { LiteratureComponent } from './components/literature/literature.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +56,14 @@ import { MessagesComponent } from './components/messages/messages.component';
     AddMessageComponent,
     ApprovedMessageComponent,
     OpenMessageComponent,
-    MessagesComponent
+    MessagesComponent,
+    EmployeesComponent,
+    DocumentationComponent,
+    NewsComponent,
+    ScheduleComponent,
+    AboutComponent,
+    LiteratureComponent,
+    EditEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +113,8 @@ import { MessagesComponent } from './components/messages/messages.component';
     AddMessageComponent,
     CommentsComponent,
     ApprovedMessageComponent,
-    OpenMessageComponent
+    OpenMessageComponent,
+    EditEmployeeComponent
   ],
   providers: [
     DetailService,

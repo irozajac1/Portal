@@ -26,7 +26,7 @@ namespace WebApplication1.Services
 
         public List<Employee> getAllEmployees()
         {
-            return employeeRepository.GetAll().ToList();
+            return employeeRepository.IncludeAll().ToList();
         }
 
         public Employee GetEmployeeById(Guid id)
@@ -81,26 +81,15 @@ namespace WebApplication1.Services
             employeeRepository.Insert(employee);
 
         }
-        public void DeleteEmployee(Employee employee)
+        public void DeleteEmployee(Guid id)
         {
+            var employee = employeeRepository.GetById(id);
             employeeRepository.Delete(employee);
         }
 
         public void UpdateEmployee(Guid id,Employee employee)
         {
             var emp = employeeRepository.GetById(id);
-
-            //emp = new Employee
-            //{
-            //    Firstname = employee.Firstname,
-            //    Lastname = employee.Lastname,
-            //    Email = employee.Email,
-            //    Department = employee.Department,
-            //    Position = employee.Position,
-            //    StartOfWork = employee.StartOfWork,
-            //    EndOfWork = employee.EndOfWork,
-            //    Telephone = employee.Telephone
-            //};
 
             emp.Firstname = employee.Firstname;
             emp.Lastname = employee.Lastname;
@@ -110,6 +99,7 @@ namespace WebApplication1.Services
             emp.StartOfWork = employee.StartOfWork;
             emp.EndOfWork = employee.EndOfWork;
             emp.Telephone = employee.Telephone;
+            emp.EmployeePicture = employee.EmployeePicture;
 
             employeeRepository.Update(emp);
         }

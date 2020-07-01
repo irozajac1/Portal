@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace WebApplication1.Interface
         List<Message> GetMessages();
         int GetNotApprovedMessageCount();
         void UpdateMessage(Guid id, Message message);
-        void DownloadFile(Guid id);
+        FileStreamResult DownloadFile(Guid id);
         string GetType(string path);
-        void SendMessage(MessageRequest messageRequest);
+        void SendMessage(LiteratureRequest messageRequest);
         void LikeMessage(LikeRequest likeRequest);
         void DislikeMessage(LikeRequest likeRequest);
         void DeleteMessage(Guid id);

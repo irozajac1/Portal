@@ -7,8 +7,8 @@ export class MessageDetail {
   public ListOfComments: CommentDetail[];
   public Email: string;
   public IsApproved: boolean;
-  public Group: string;
   public IsDeleted: boolean;
+  public Group: string;
   public Attachments: AttachmentList[];
   public LikeCounter?: number;
   public UserLikeList?: UserLike[];
@@ -35,14 +35,41 @@ export class AttachmentList {
 
 export class Employee {
   public EmployeeId?: number;
-  public FirstName: string;
-  public LastName: string;
+  public Firstname: string;
+  public Lastname: string;
+  public Department: string;
+  public Position: string;
+  public EndOfWork: Date;
+  public StartOfWork: Date;
   public Email: string;
   public Telephone?: string;
-  public Photo: AttachmentList;
+  public EmployeePicture: AttachmentList;
 }
 export class UserLike {
   public LikeId: number;
   public Email: string;
   public IsLiked: boolean;
+}
+
+export class Documentation {
+  public Id: string;
+  public Title: string;
+  public Group: string;
+  public Link: string;
+}
+
+export class Literature {
+  public Id: string;
+  public Title: string;
+  public Group: string;
+  public Link: string;
+  public Attachment: AttachmentList;
+  public Email: string;
+  public IsApproved: boolean;
+  public IsDeleted: boolean;
+}
+
+export class Schedule {
+  public Id: string;
+  public Url: string;
 }

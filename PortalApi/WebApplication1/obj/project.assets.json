@@ -12939,11 +12939,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\irma.rozajac\\Desktop\\PortalApi\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\irma.rozajac\\Desktop\\Portal\\PortalApi\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\irma.rozajac\\Desktop\\PortalApi\\WebApplication1\\WebApplication1.csproj",
+      "projectPath": "C:\\Users\\irma.rozajac\\Desktop\\Portal\\PortalApi\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\irma.rozajac\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\irma.rozajac\\Desktop\\PortalApi\\WebApplication1\\obj\\",
+      "outputPath": "C:\\Users\\irma.rozajac\\Desktop\\Portal\\PortalApi\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

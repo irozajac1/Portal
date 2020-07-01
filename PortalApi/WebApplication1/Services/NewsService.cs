@@ -37,9 +37,14 @@ namespace WebApplication1.Services
             repository.Insert(news);
         }
 
-        public void Update(News news)
+        public void Update(Guid id, News news)
         {
-            throw new NotImplementedException();
+            var newDetail = repository.GetById(id);
+
+            newDetail.Content = news.Content;
+            newDetail.DateOfEvent = news.DateOfEvent;
+
+            repository.Update(newDetail);
         }
     }
 }

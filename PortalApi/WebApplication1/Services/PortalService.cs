@@ -83,8 +83,9 @@ namespace WebApplication1.Services
             }
             
         }
-        public void deleteTextAbout(About a)
+        public void deleteTextAbout(Guid id)
         {
+            var a = aboutrepository.GetById(id);
             aboutrepository.Delete(a);
         }
 
@@ -112,8 +113,9 @@ namespace WebApplication1.Services
             documentationrepository.Insert(documentation);
         }
 
-        public void deleteDocumentation(Documentation documentation)
+        public void deleteDocumentation(Guid id)
         {
+            var documentation = documentationrepository.GetById(id);
             documentationrepository.Delete(documentation);
         }
         public void deleteAllGroup(string group)
@@ -133,6 +135,12 @@ namespace WebApplication1.Services
         {
             return meetingsrepository.GetById(id);
         }
+
+        public List<Meetings> GetMeetings()
+        {
+            return meetingsrepository.GetAll().ToList();
+        }
+
 
         public void PostLink(Meetings meeting)
         {

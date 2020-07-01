@@ -12,7 +12,7 @@
         <div id="searchFieldIcon">
           <fa-icon [icon]="faSearch" class="centerAll darkGrayText"></fa-icon>
         </div>
-        <input class="pointer" placeholder="Pretaga" type="search" [(ngModel)]="searchText" autocomplete="off">
+        <input class="pointer" placeholder="Pretaga" type="search" autocomplete="off">
       </form>
     </span>
     <span class="pointer">
@@ -26,46 +26,6 @@
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </span>
   </nav>
-
-  <!-- <mat-toolbar class="logoheader">
-    <span id="header-icon-wrapper"><img id="header-icon" src="assets\images\mibologo.png" class="mibologo" /></span>
-    <div *ngIf="!mobile" class="vertical-line"></div>
-    <span><img src="assets\images\small.png" class="creativelogo" (click)="onLogoClick()"></span>
-    <h3 id="dobrePrakse" *ngIf="!mobile;"> Portal interne komunikacije
-    </h3>
-    <span *ngIf="!mobile" class="header-spacer"></span>
-    <span *ngIf="!mobile" id="search-field">
-      <mat-form-field class="search-full-width ">
-        <mat-icon matPrefix class="searchicon">search</mat-icon>
-        <input matInput placeholder="Pretraga" [(ngModel)]="searchText" autocomplete="off" />
-        <button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText = ''"
-          matTooltip="Obriši">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-    </span>
-    <span *ngIf="!mobile" class="headerbtn">
-      <button
-        mat-flat-button
-        class="approvedbtn"
-        matBadgeColor="warn"
-        matBadgePosition="before"
-        [matBadge]="countmessages"
-        [matBadgeHidden]="showcountmessages || countmessages == 0"
-        (click)="openApprovedMessageDialog()"
-        matTooltip="Odobrite prijedloge"
-        *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" 
-      > 
-      <button mat-flat-button class="approvedbtn" matBadgeColor="warn" matBadgePosition="before"
-        [matBadge]="countmessages" [matBadgeHidden]="showcountmessages || countmessages == 0"
-        (click)="openApprovedMessageDialog()" matTooltip="Odobrite prijedloge">
-        Odobrite prijedloge
-      </button>
-      <button mat-flat-button (click)="logout()" matTooltip="Odjavite se" class="logoutbtn">
-        Odjavite se
-      </button>
-    </span>
-  </mat-toolbar> -->
 </div>
 <!-- plusic za dodavanje prijedloga -->
 <div class="messagebtn">
@@ -76,100 +36,32 @@
 
 <main>
   <section id="sidebar" *ngIf="toggleSidebar">
-    <ul>
-      <li routerLink="/kompanija">
+    <ul id="sidebarMenu">
+      <li routerLink="/About">
         <fa-icon [icon]="faBuilding"></fa-icon> O kompaniji
       </li>
-      <li routerLink="/uposlenici">
+      <li routerLink="/Employees">
         <fa-icon [icon]="faUserFriends"></fa-icon> Zaposlenici
       </li>
-      <li>
+      <li routerLink="/Literature">
         <fa-icon [icon]="faFileAlt"></fa-icon> Pravilnici
       </li>
-      <li routerLink="/dokumentacija">
+      <li routerLink="/Documentation">
         <fa-icon [icon]="faBook"></fa-icon> Korisna literatura
       </li>
-      <li routerLink="/novosti">
+      <li routerLink="/News">
         <fa-icon [icon]="faNewspaper"></fa-icon> Novosti
       </li>
-      <li routerLink="/raspored">
+      <li routerLink="/Schedule">
         <fa-icon [icon]="faCalendarAlt"></fa-icon> Plan i raspored sala
       </li>
-      <li [routerLink]="['Messages']">
-        <fa-icon [icon]="faInbox"></fa-icon> MIBOX
+      <li routerLink="/Messages">
+        <fa-icon [icon]="faInbox"></fa-icon> Poruke
       </li>
     </ul>
   </section>
   <div>
     <router-outlet></router-outlet>
-    <div class="portalcontent">
-      <span *ngFor="let message of service.messages | filter: searchText" class="dialogmessage">
-        <mat-card class="message-card" *ngIf="message.IsApproved == true">
-          <div class="email">
-            <mat-icon class="accounticon">account_circle</mat-icon>{{ message.Email }}
-          </div>
-          <mat-card-content>
-            <div class="messagetext">
-              <mat-card>
-                <p id="messageShort" *ngIf="message.TextMessage.length > 100">
-                  {{ message.TextMessage.substr(0, 100) }}...
-                </p>
-                <p id="messageShort" *ngIf="message.TextMessage.length < 100">
-                  {{ message.TextMessage }}
-                </p>
-              </mat-card>
-            </div>
-            <p>{{ message.CurrentDate | date: "HH:mm   dd.MM.yyyy." }}</p>
-            <div>
-              <span id="chips" *ngFor="let att of message.Attachments">
-                <mat-chip-list id="chip" class="no-wrap">
-                  <mat-chip (click)="downloadFile(att.AttachmentId)">{{ att.AttachmentFileName }}
-                  </mat-chip>
-                  <fa-icon [icon]="faDownload" (click)="downloadFile(att.AttachmentId)" class="fa-lg"></fa-icon>
-                </mat-chip-list>
-              </span>
-            </div>
-            <mat-card-actions>
-              <div class="allowbtn">
-                <button mat-button color="primary" (click)="openCommentDialog(message.MessageId)"
-                  matTooltip="Ostavite komentar">
-                  <fa-icon [icon]="faComment" class="fa-lg"></fa-icon>
-                </button>
-
-                <button mat-button color="basic" (click)="openExpandDialog(message.MessageId)" matTooltip="Vidi više">
-                  <fa-icon [icon]="faExpandAlt" class="fa-lg"></fa-icon>
-                </button>
-
-
-                <button mat-button color="basic" *ngIf="!checkLikedMessages(message.MessageId); else dislike"
-                  (click)="likeMessage(message.MessageId)" matTooltip="Sviđa mi se: {{message.LikeCounter}}">
-                  <fa-icon [icon]="faThumbsUp" class="fa-lg"></fa-icon>
-                </button>
-                <ng-template #dislike>
-                  <button mat-button color="basic" *ngIf="checkLikedMessages(message.MessageId)"
-                    (click)="dislikeMessage(message.MessageId)" matTooltip="Sviđa mi se: {{message.LikeCounter}}">
-                    <fa-icon [icon]="faThumbsDown" class="fa-lg"></fa-icon>
-                  </button>
-                </ng-template>
-
-                <!-- <p>{{countlikes}}</p> -->
-                <button mat-button color="warn" (click)="
-                    onDelete(
-                      message.MessageId,
-                      message.TextMessage,
-                      message.Email,
-                      message.Group
-                    )
-                  " matTooltip="Odbacite prijedlog">
-                  <!-- <fa-icon *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" [icon]="faTrash" class="fa-lg"></fa-icon> -->
-                  <fa-icon [icon]="faTrash" class="fa-lg"></fa-icon>
-                </button>
-              </div>
-            </mat-card-actions>
-          </mat-card-content>
-        </mat-card>
-      </span>
-    </div>
   </div>
   <!-- <mat-tab-group class="paddingTop" animationDuration="0ms">
    tab razmjena dobre prakse -->

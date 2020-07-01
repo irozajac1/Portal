@@ -27,8 +27,8 @@ namespace WebApplication1.Controllers
             return _service.GetAllText();
         }
 
-        // GET: api/About/getAboutById/1
-        [HttpGet("getAboutById/{id}")]
+        // GET: api/About/getAboutById
+        [HttpGet("getAboutById")]
         public About GetAboutById(Guid id)
         {
             return _service.GetTextByID(id);
@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
 
         // POST: api/About/SetText
         [HttpPost("SetText")]
-        public IActionResult postText(About tekst)
+        public IActionResult PostText(About tekst)
         {
             _service.SetAboutText(tekst);
             return Ok();
@@ -44,9 +44,9 @@ namespace WebApplication1.Controllers
 
         //DELETE: api/About/deleteText
         [HttpDelete("deleteText")]
-        public void deleteText(About about)
+        public void DeleteText(Guid id)
         {
-            _service.deleteTextAbout(about);
+            _service.deleteTextAbout(id);
         }
     }
 }

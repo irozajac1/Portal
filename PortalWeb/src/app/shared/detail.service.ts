@@ -46,7 +46,7 @@ export class DetailService {
 
   }
 
-  downloadFile(id: number) {
+  downloadFile(id: string) {
     window.open(this.rootURL + "/Messages/" + id);
   }
 
@@ -57,7 +57,7 @@ export class DetailService {
     );
   }
   getDocuments() {
-    this.http.get(this.rootURL + "/Messages/Documents")
+    this.http.get(this.rootURL + "/Documentation")
       .toPromise()
       .then(res => ( this.document = res as Document[]));
   }

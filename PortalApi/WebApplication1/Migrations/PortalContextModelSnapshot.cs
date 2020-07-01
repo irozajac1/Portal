@@ -36,21 +36,13 @@ namespace WebApplication1.Migrations
                     b.Property<Guid>("AttachmentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("AboutId");
-
                     b.Property<string>("AttachmentFileName");
 
                     b.Property<string>("AttachmentFileReference");
 
-                    b.Property<Guid?>("LiteratureId");
-
                     b.Property<Guid?>("MessageId");
 
                     b.HasKey("AttachmentId");
-
-                    b.HasIndex("AboutId");
-
-                    b.HasIndex("LiteratureId");
 
                     b.HasIndex("MessageId");
 
@@ -132,6 +124,8 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<Guid?>("FilesAttachmentId");
+
                     b.Property<string>("Group");
 
                     b.Property<bool>("IsApproved");
@@ -143,6 +137,8 @@ namespace WebApplication1.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FilesAttachmentId");
 
                     b.ToTable("Literatures");
                 });
@@ -217,14 +213,6 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.Attachment", b =>
                 {
-                    b.HasOne("WebApplication1.Models.About")
-                        .WithMany("Files")
-                        .HasForeignKey("AboutId");
-
-                    b.HasOne("WebApplication1.Models.Literature")
-                        .WithMany("Files")
-                        .HasForeignKey("LiteratureId");
-
                     b.HasOne("WebApplication1.Models.Message")
                         .WithMany("Attachments")
                         .HasForeignKey("MessageId");
@@ -242,6 +230,13 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Models.Attachment", "EmployeePicture")
                         .WithMany()
                         .HasForeignKey("EmployeePictureAttachmentId");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Literature", b =>
+                {
+                    b.HasOne("WebApplication1.Models.Attachment", "Files")
+                        .WithMany()
+                        .HasForeignKey("FilesAttachmentId");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.UserLike", b =>

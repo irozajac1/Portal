@@ -75,17 +75,6 @@
     margin: 0;
 }
 
-.allowbtn {
-    text-align: right;
-}
-
-#messageShort {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 100ch;
-}
-
 .commentbtn {
     text-align: center;
 }
@@ -103,8 +92,10 @@
 }
 
 .messagebtn {
-    float: right;
-    text-align: right;
+    position: fixed;
+    top: 50px;
+    right: 0;
+    z-index: 1000;
 }
 
 #search-field {
@@ -127,21 +118,8 @@
     white-space: pre-line;
 }
 
-.messagetext {
-    height: auto;
-}
-
 .checkbtn, .restorebtn {
     color: green;
-}
-
-.email {
-    margin: 10px;
-}
-
-.accounticon {
-    text-align: left;
-    padding-right: 20px;
 }
 
 .search {
@@ -176,6 +154,11 @@ nav {
     grid-template-columns: 1fr 1fr 15fr 1fr 1fr;
     padding: 10px;
     border-bottom: 1px solid #cccccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 1000;
 }
 
 nav img {
@@ -253,6 +236,11 @@ main {
 
 /* SIDEBAR */
 
+#sidebarMenu {
+    padding-top: 60px;
+    z-index: 1000;
+}
+
 section {
     height: 100%;
 }
@@ -283,6 +271,12 @@ ul li:hover {
 
 /* ------- */
 
+@media (min-width: 660px) {
+    #menu {
+        visibility: hidden;
+    }
+}
+
 @media (max-width: 660px) {
     footer {
         background-color: #f8f8f8;
@@ -294,6 +288,11 @@ ul li:hover {
         display: flex;
         border-top: 1px solid black;
         z-index: 100;
+    }
+    .addbtn {
+        margin: 10px;
+        height: 40px;
+        width: 40px;
     }
     .approvedbtn {
         width: fit-content;
@@ -322,6 +321,7 @@ ul li:hover {
     }
     nav {
         grid-template-columns: 1fr 6fr 1fr 1fr;
+        width: 100%;
     }
     form {
         width: 80%;
@@ -369,18 +369,6 @@ ul li:hover {
         width: 45%;
         padding: 10px;
     }
-    .message-card {
-        width: auto;
-        margin: 10% 0% 8% 0%;
-        padding: auto 5px;
-    }
-    .addbtn {
-        margin: 20px 20px 10px auto;
-    }
-    .messagetext {
-        margin: 0px;
-        float: center;
-    }
     .logoheader {
         margin: 0;
         padding: 5% auto;
@@ -415,19 +403,6 @@ ul li:hover {
     .header-spacer {
         flex: 0 0 auto;
     }
-}
-
-#chips {
-    margin: 5px 10px;
-    display: inline-block;
-}
-
-#chips:hover {
-    cursor: pointer;
-}
-
-mat-chip-list {
-    margin: 10px;
 }
 
 /* @media only screen and (max-width: 700px) {

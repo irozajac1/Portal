@@ -20,39 +20,39 @@ namespace WebApplication1.Controllers
             _service = service;
         }
 
-        //Get: api/Documentation/documentation
-        [HttpGet("documentation")]
-        public List<Documentation> getDocumentation()
+        //Get: api/Documentation
+        [HttpGet]
+        public List<Documentation> GetDocumentation()
         {
             return _service.GetAllDocumentation();
         }
 
         //Get: api/Documentation/documentationById
-        [HttpGet("documentationById/{id}")]
-        public Documentation getDocumentationById(Guid id)
+        [HttpGet("documentationById")]
+        public Documentation GetDocumentationById(Guid id)
         {
             return _service.getById(id);
         }
 
         //Get: api/Documentation/documentationByGroup
         [HttpGet("documentationByGroup")]
-        public List<Documentation> getByGroupName(string group)
+        public List<Documentation> GetByGroupName(string group)
         {
             return _service.getByGroupName(group);
         }
 
         // POST: api/Documentation/sendDocumentation
         [HttpPost("sendDocumentation")]
-        public void postDocumentation(Documentation documentation)
+        public void PostDocumentation(Documentation documentation)
         {
             _service.addDocumentation(documentation);
         }
 
-        //DELETE: api/Documentation/deleteDocumentation
-        [HttpDelete("deleteDocumentation")]
-        public void deleteDocumentation(Documentation documentation)
+        //DELETE: api/Documentation/deleteDoc
+        [HttpDelete("deleteDoc/{id}")]
+        public void DeleteDocumentation(Guid id)
         {
-            _service.deleteDocumentation(documentation);
+            _service.deleteDocumentation(id);
         }
     }
 }

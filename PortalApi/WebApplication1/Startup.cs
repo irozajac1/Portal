@@ -55,6 +55,7 @@ namespace WebApplication1
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddScoped(typeof(IPortalRepository<>), typeof(PortalRepository<>));
             services.AddScoped<IPortalService, PortalService>();
+            services.AddScoped<ILiteratureService, LiteratureService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<INewsService, NewsService>();

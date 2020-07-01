@@ -8,6 +8,6 @@ namespace WebApplication1.Models
     public class LikeRequest
     {
         public string Email { get; set; }
-        public int MessageId { get; set; }
+        public Guid MessageId { get; set; }
     }
 }

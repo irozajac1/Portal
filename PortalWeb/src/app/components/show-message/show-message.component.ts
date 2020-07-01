@@ -81,7 +81,7 @@ export class ShowMessageComponent implements OnInit {
   ) { }
   ngOnInit() {
 
-    if (window.screen.width <= 600) {
+    if (window.screen.width <= 660) {
       this.mobile = true;
       this.toggleSidebar = false;
     }
@@ -119,7 +119,7 @@ export class ShowMessageComponent implements OnInit {
 
   }
 
-  downloadFile(id: number) {
+  downloadFile(id) {
     this.service.downloadFile(id);
   }
 

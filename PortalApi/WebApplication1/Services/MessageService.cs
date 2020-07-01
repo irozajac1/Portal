@@ -31,20 +31,32 @@ namespace WebApplication1.Services
 
         public void DeleteMessage(Guid id)
         {
-            var message = messageRepository.IncludeAll().First(x => x.Id == id);
-            message.ListOfComments.Clear();
-            messageRepository.Delete(message);
+            try
+            {
+                var message = messageRepository.IncludeAll().First(x => x.Id == id);
+                message.ListOfComments.Clear();
+                messageRepository.Delete(message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public void DislikeMessage(LikeRequest likeRequest)
         {
-            throw new NotImplementedException();
+            var message = messageRepository.GetById(likeRequest.MessageId);
+            message.LikeCounter -= 1;
+            messageRepository.Save();
+            //var message = _context.Message.Include("UserLikeList").SingleOrDefault(x => x.MessageId == likeRequest.MessageId);
+            //message.LikeCounter -= 1;
         }
 
-        public void DownloadFile(Guid id)
+        public FileStreamResult DownloadFile(Guid id)
         {
             var attachment = attrepository.GetById(id);
-            var upload = _configuration.GetSection("Paths:Archive").Value + "\\Upload\\";
+            var upload = _configuration.GetSection("Paths:Archive").Value + "\\Files\\";
             var filePath = Path.Combine(upload, attachment.AttachmentFileReference.ToString());
 
             //if (!System.IO.File.Exists(filePath))
@@ -58,7 +70,9 @@ namespace WebApplication1.Services
 
             memory.Position = 0;
             var type = GetType(filePath);
-            //return File(memory, type, attachment.AttachmentFileName);
+            return new FileStreamResult(memory, type){
+                FileDownloadName = attachment.AttachmentFileName
+            };
         }
 
         public List<Message> GetMessages()
@@ -88,7 +102,23 @@ namespace WebApplication1.Services
 
         public void LikeMessage(LikeRequest likeRequest)
         {
-            throw new NotImplementedException();
+            var message = messageRepository.GetById(likeRequest.MessageId);
+            var isLiked = message.UserLikeList.Exists(x => x.Email == likeRequest.Email);
+
+            if (!isLiked)
+            {
+                message.LikeCounter += 1;
+                List<UserLike> usersWhoLiked = new List<UserLike>();
+                UserLike userLike = new UserLike()
+                {
+                    Id = new Guid(),
+                    Email = likeRequest.Email,
+                    Liked = true,
+                };
+                usersWhoLiked.Add(userLike);
+                message.UserLikeList = usersWhoLiked;
+                messageRepository.Save();
+            }
         }
 
 
@@ -101,7 +131,7 @@ namespace WebApplication1.Services
             
         }
 
-        public void SendMessage(MessageRequest messageRequest)
+        public void SendMessage(LiteratureRequest messageRequest)
         {
             var attachmentList = new List<Attachment>();
             var folderPath = _configuration.GetSection("Paths:Archive").Value + "\\Upload\\";
@@ -147,7 +177,10 @@ namespace WebApplication1.Services
 
         public void UpdateMessage(Guid id, Message message)
         {
+            var messageNew = messageRepository.GetById(id);
 
+            messageNew.TextMessage = message.TextMessage;
+            messageNew.Attachments = message.Attachments;
         }
 
         public List<Comment> GetAllComments()

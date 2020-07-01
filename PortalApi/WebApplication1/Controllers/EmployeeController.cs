@@ -35,10 +35,8 @@ namespace WebApplication1.Controllers
             return _service.getAllEmployees();
         }
 
-
-
-        // GET: api/Employee/getEmployeeById/2
-        [HttpGet("getEmployeeById/{id}")]
+        // GET: api/Employee/getEmployeeById
+        [HttpGet("getEmployeeById")]
         public Employee GetEmployeeDetails(Guid id)
         {
             return _service.GetEmployeeById(id);
@@ -53,17 +51,17 @@ namespace WebApplication1.Controllers
             return Ok();
         }
 
-        
 
-        // DELETE: api/Employee/5
-        [HttpDelete("{id}")]
-        public ActionResult DeleteEmployee(Employee employee)
+
+        // DELETE: api/Employee/deleteEmployee
+        [HttpDelete("deleteEmployee/{id}")]
+        public ActionResult DeleteEmployee(Guid id)
         {
-            _service.DeleteEmployee(employee);
+            _service.DeleteEmployee(id);
             return Ok();
         }
 
-        //PUT : api/Employee/Update/2
+        //PUT : api/Employee/Update
         [HttpPut("Update/{id}")]
         public IActionResult UpdateEmployee(Guid id, [FromBody] Employee employee)
         {
@@ -73,11 +71,6 @@ namespace WebApplication1.Controllers
                 {
                     return BadRequest("Invalid objeect sent from client");
                 }
-                //var empObject = _service.GetEmployeeById(id);
-                //if(empObject == null)
-                //{
-                //    return NotFound();
-                //}
                 _service.UpdateEmployee(id,employee);
                 return NoContent();
             }

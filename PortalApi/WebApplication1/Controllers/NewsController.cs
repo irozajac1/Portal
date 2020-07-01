@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
         }
 
         // PUT: api/News/5
-        [HttpPut("{id}")]
+        [HttpPut("{update}")]
         public async Task<IActionResult> PutNews(Guid id, [FromBody] News news)
         {
             if (id != news.Id)
@@ -69,11 +69,11 @@ namespace WebApplication1.Controllers
 
             try
             {
-                service.Update(news);
+                service.Update(id,news);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!newsExists(id))
+                if (!NewsExists(id))
                 {
                     return NotFound();
                 }
@@ -84,15 +84,15 @@ namespace WebApplication1.Controllers
             }
             return NoContent();
         }
-        // DELETE: api/News/5
-        [HttpDelete("{id}")]
+        // DELETE: api/News/deleteNews
+        [HttpDelete("deleteNews")]
         public async Task<ActionResult<News>> DeleteNews(Guid id)
         {
             service.DeleteNews(id);
 
             return Ok();
         }
-        private bool newsExists(Guid id)
+        private bool NewsExists(Guid id)
         {
             var news = service.GetNewsById(id);
             if (news == null)

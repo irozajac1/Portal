@@ -25,20 +25,24 @@ export class EmployeeService {
     var formData: FormData = new FormData();
 
     formData.append("EmployeePicture", file, file.name);
-    
-    formData.append("FirstName", fromDataUser.FirstName);
-    formData.append("LastName", fromDataUser.LastName);
+
+    formData.append("FirstName", fromDataUser.Firstname);
+    formData.append("LastName", fromDataUser.Lastname);
     formData.append("Email", fromDataUser.Email);
     formData.append("Telephone", fromDataUser.Telephone);
 
     return this.http.post(this.rootURL + "/Employee/AddEmployee", formData);
   }
 
-  deleteEmployee(id) {
-    return this.http.delete(this.rootURL + "/Employee/" + id);
+  getEmployees<Employee>() {
+    return this.http.get(this.rootURL + "/Employee/getEmployees");
   }
-  updateEmployee(employee: Employee, id: number){
-    return this.http.put(this.rootURL + "/Employee/" + id, employee);
 
+  deleteEmployee(id) {
+    this.http.delete(this.rootURL + "/Employee/deleteEmployee/" + id).subscribe();
+    window.location.reload();
+  }
+  updateEmployee(employee: Employee, id: number) {
+    return this.http.put(this.rootURL + "/Employee/Update/" + id, employee).subscribe();
   }
 }

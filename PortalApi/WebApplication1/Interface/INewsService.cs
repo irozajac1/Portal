@@ -11,7 +11,7 @@ namespace WebApplication1.Interface
         List<News> GetAllNews();
         News GetNewsById(Guid id);
         void PostNew(News news);
-        void Update(News news);
+        void Update(Guid id, News news);
         void DeleteNews(Guid id);
 
     }

@@ -11,7 +11,7 @@ namespace WebApplication1.Interface
         List<Employee> getAllEmployees();
         Employee GetEmployeeById(Guid id);
         void PostEmployee(EmployeeRequest employee);
-        void DeleteEmployee(Employee employee);
+        void DeleteEmployee(Guid id);
         void UpdateEmployee(Guid id, Employee employee);
     }
 }
