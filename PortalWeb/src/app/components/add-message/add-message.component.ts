@@ -17,6 +17,7 @@ export class AddMessageComponent implements OnInit {
   messageForm: FormGroup;
   documentForm: FormGroup;
   employeeForm: FormGroup;
+  scheduleForm: FormGroup;
   faWindowClose = faWindowClose;
 
   documentFile: File;
@@ -48,13 +49,22 @@ export class AddMessageComponent implements OnInit {
       Firstname: ["", Validators.required],
       Lastname: ["", Validators.required],
       Phone: ["", Validators.required],
+      StartDate: ["", Validators.required],
+      EmployeePicture: [""]
     });
 
     this.documentForm = this.formBuilder.group({
       Title: ["", Validators.required],
       Attachment: [],
     });
+
+    this.scheduleForm = this.formBuilder.group({
+      Title: ["", Validators.required],
+      Link: ["", Validators.required]
+    });
+
   }
+
   get f() {
     return this.messageForm.controls;
   }
@@ -90,7 +100,6 @@ export class AddMessageComponent implements OnInit {
   uploadDoc(e) {
     if (e.length != null)
       this.documentFile = e;
-      console.log(e);
   }
   // uploadEmployeePicture(e) {
   //   if (e.length != 0) {
@@ -125,12 +134,13 @@ export class AddMessageComponent implements OnInit {
       });
   }
 
-  onSubmitDocument() {
+
+  onSubmitSchedule() {
     this.submitted = true;
-    if (this.documentForm.invalid) {
+    if (this.scheduleForm.invalid) {
       return;
     }
-    this.service.postdocument(this.documentForm.value, this.documentFile).subscribe(res => {
+    this.service.postSchedule(this.scheduleForm.value).subscribe(res => {
       this.clearDocumentForm();
       this.toastr.success("Uspješno");
       this.resetForm();
@@ -141,7 +151,6 @@ export class AddMessageComponent implements OnInit {
         this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
       });
   }
-
   // onSubmit(type: string) {
   //   this.submitted = true;
   //   if (this.messageForm.invalid || this.employeeForm.invalid) {
@@ -175,17 +184,16 @@ export class AddMessageComponent implements OnInit {
   // }
 
   onSubmitEmployees() {
-    console.log(1);
-    // this.serviceEmp.postUser(this.employeeForm.value, this.documentFile).subscribe(res => {
-    //   this.clearMessageForm();
-    //   this.toastr.success("Uspješno");
-    //   this.resetForm();
-    //   this.service.refreshMessageList();
-    //   this.closeClick();
-    // },
-    //   err => {
-    //     this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
-    //   });
+    this.serviceEmp.postUser(this.employeeForm.value, this.documentFile).subscribe(res => {
+      this.clearMessageForm();
+      this.toastr.success("Uspješno");
+      this.resetForm();
+      this.service.refreshMessageList();
+      this.closeClick();
+    },
+      err => {
+        this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
+      });
   }
 
 

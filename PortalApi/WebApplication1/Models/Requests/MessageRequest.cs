@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class LiteratureRequest
+    public class MessageRequest
     {
        
         public string TextMessage { get; set; }

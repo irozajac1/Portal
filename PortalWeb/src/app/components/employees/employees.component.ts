@@ -18,6 +18,7 @@ export class EmployeesComponent implements OnInit {
   faTrash = faTrash;
   faEdit = faEdit;
   getEmail = 'muhamed.skikic@mibo.ba';
+  ArrayOfFiles: any[] = [];
 
   constructor(public EmployeeService: EmployeeService, public dialog: MatDialog,
   ) {
@@ -29,7 +30,13 @@ export class EmployeesComponent implements OnInit {
     this.EmployeeService.getEmployees().subscribe(data => { this.Employees = data as Employee[]; });
   }
 
-  deleteDocument(id){
+  uploadFileSave(e) {
+    if (e.length != 0) {
+      this.ArrayOfFiles.push(e[0]);
+    }
+  }
+
+  deleteDocument(id) {
     return this.EmployeeService.deleteEmployee(id);
   }
 

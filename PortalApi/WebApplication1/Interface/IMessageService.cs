@@ -14,7 +14,7 @@ namespace WebApplication1.Interface
         void UpdateMessage(Guid id, Message message);
         FileStreamResult DownloadFile(Guid id);
         string GetType(string path);
-        void SendMessage(LiteratureRequest messageRequest);
+        void SendMessage(MessageRequest messageRequest);
         void LikeMessage(LikeRequest likeRequest);
         void DislikeMessage(LikeRequest likeRequest);
         void DeleteMessage(Guid id);

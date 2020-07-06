@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace WebApplication1.Interface
     {
         List<Literature> GetAll();
         Literature GetById(Guid id);
-        List<Literature> GetAllByGroup(string group);
-        void PostLiterature(Models.Requests.LiteratureRequest messageRequest);
+        void PostLiterature(LiteratureRequest litRequest);
         void DeleteLiterature(Guid id);
         int GetNotApproved();
+        FileStreamResult DownloadFile(Guid id);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -16,12 +18,14 @@ namespace WebApplication1.Services
         public IHostingEnvironment _env;
         IConfiguration _configuration;
         public IPortalRepository<Literature> repository;
+        public IPortalRepository<Attachment> attrepository;
 
-        public LiteratureService(IHostingEnvironment env, IConfiguration configuration, IPortalRepository<Literature> repository)
+        public LiteratureService(IPortalRepository<Attachment> attrepository, IHostingEnvironment env, IConfiguration configuration, IPortalRepository<Literature> repository)
         {
             _env = env;
             _configuration = configuration;
             this.repository = repository;
+            this.attrepository = attrepository;
         }
 
         public void DeleteLiterature(Guid id)
@@ -32,20 +36,16 @@ namespace WebApplication1.Services
 
         public List<Literature> GetAll()
         {
-            return repository.IncludeAll().ToList();
+            return repository.GetAll().ToList();
         }
 
-        public List<Literature> GetAllByGroup(string group)
-        {
-            return repository.FindByCondition(x => x.Group == group);
-        }
 
         public Literature GetById(Guid id)
         {
             return repository.GetById(id);
         }
 
-        public void PostLiterature(Models.Requests.LiteratureRequest literatueRequest)
+        public void PostLiterature(LiteratureRequest literatueRequest)
         {
             var attachment = new Attachment();
             var folderPath = _configuration.GetSection("Paths:Archive").Value + "\\Literature\\";
@@ -83,7 +83,6 @@ namespace WebApplication1.Services
                 IsApproved = false,
                 IsDeleted = false,
                 Title = literatueRequest.Title,
-                Group = literatueRequest.Group,
                 Link = literatueRequest.Link
                
             };
@@ -94,6 +93,36 @@ namespace WebApplication1.Services
         {
             var nummber = repository.GetAll().Where(x => x.IsApproved == false && x.IsDeleted == false).Count();
             return nummber;
+        }
+
+        public FileStreamResult DownloadFile(Guid id)
+        {
+            var attachment = attrepository.GetById(id);
+            var upload = _configuration.GetSection("Paths:Archive").Value + "\\Files\\";
+            var filePath = Path.Combine(upload, attachment.AttachmentFileReference.ToString());
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                stream.CopyTo(memory);
+            }
+
+            memory.Position = 0;
+            var type = GetType(filePath);
+            return new FileStreamResult(memory, type)
+            {
+                FileDownloadName = attachment.AttachmentFileName
+            };
+        }
+        private string GetType(string path)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+            if (!provider.TryGetContentType(path, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+            return contentType;
         }
     }
 }

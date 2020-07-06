@@ -131,7 +131,7 @@ namespace WebApplication1.Services
             
         }
 
-        public void SendMessage(LiteratureRequest messageRequest)
+        public void SendMessage(MessageRequest messageRequest)
         {
             var attachmentList = new List<Attachment>();
             var folderPath = _configuration.GetSection("Paths:Archive").Value + "\\Upload\\";

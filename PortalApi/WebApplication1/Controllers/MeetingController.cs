@@ -20,15 +20,15 @@ namespace WebApplication1.Controllers
             this.service = service;
         }
 
-        [HttpGet]
-        public async Task<List<Meetings>> GetLinks()
+        [HttpGet("GetMeetings")]
+        public List<Meetings> GetLinks()
         {
-            var meeting = service.GetMeetings();
-            return meeting;
+            return service.GetMeetings();
+            
         }
 
         // GET: api/Meeting/5
-        [HttpGet("{id}", Name = "GetMeeting")]
+        [HttpGet("GetMeeting/{id}")]
         public async Task<ActionResult<Meetings>> GetLink(Guid id)
         {
             var meet = service.GetMeeting(id);
@@ -43,6 +43,14 @@ namespace WebApplication1.Controllers
         [HttpPost("PostLink")]
         public async Task<ActionResult<Meetings>> PostLink([FromBody] Meetings meeting)
         {
+            List<Meetings> meetings = service.GetMeetings();
+
+            foreach(Meetings link in meetings)
+            {
+                service.DeleteLink(link.Id);
+            }
+            
+
             if (meeting == null)
             {
                 return BadRequest();

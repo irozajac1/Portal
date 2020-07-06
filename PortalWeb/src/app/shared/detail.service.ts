@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { MessageDetail, Employee, Document, AttachmentList, LikeRequest } from "./message-detail.model";
+import { MessageDetail, Employee, Document, AttachmentList, LikeRequest, Schedule } from "./message-detail.model";
 import { CommentDetail } from "./comment-detail.model";
 import { HttpClient, HttpHeaders, HttpEvent } from "@angular/common/http";
 import { fromEvent, from, Observable } from "rxjs";
@@ -17,8 +17,9 @@ export class DetailService {
   listFOrmData: any[] = [];
   employee: Employee[];
   document: Document[];
+  schedule: Schedule;
   likeRequestValue: LikeRequest;
-  constructor(private http: HttpClient) {} 
+  constructor(private http: HttpClient) { }
 
   postMessageDetails(
     fromDataMessage: MessageDetail,
@@ -41,9 +42,18 @@ export class DetailService {
     var formData: FormData = new FormData();
     console.log(file);
     formData.append("Title", formDataDocument.Title);
-    formData.append("Attachment", file[0], file[0].name);
+    if (file[0] != null) {
+      formData.append("Attachment", file[0], file[0].name);
+    }
     return this.http.post(this.rootURL + "/Messages/PostDocument", formData);
 
+  }
+
+  postSchedule(formDataDocument): Observable<any> {
+    console.log(formDataDocument.value)
+    this.schedule.Url = formDataDocument.Link;
+    this.schedule.Title = formDataDocument.Title;
+    return this.http.post(this.rootURL + "/Meeting/PostLink", this.schedule);
   }
 
   downloadFile(id: string) {
@@ -59,7 +69,7 @@ export class DetailService {
   getDocuments() {
     this.http.get(this.rootURL + "/Documentation")
       .toPromise()
-      .then(res => ( this.document = res as Document[]));
+      .then(res => (this.document = res as Document[]));
   }
 
   getCommentDetail() {
@@ -84,15 +94,15 @@ export class DetailService {
     return this.http.put(this.rootURL + "/Messages/" + id, approved);
   }
 
-  likeMessage(id){
+  likeMessage(id) {
     this.likeRequestValue = {
       MessageId: id,
       Email: localStorage.getItem("upn")
-     }
+    }
     return this.http.post<LikeRequest>(this.rootURL + "/Messages/LikeMessage", this.likeRequestValue).subscribe();
   }
 
-  DislikeMessage(id){
+  DislikeMessage(id) {
     // return this.http.post<LikeRequest>(this.rootURL + "/Messages/DislikeMessage", ).subscribe();
   }
 }

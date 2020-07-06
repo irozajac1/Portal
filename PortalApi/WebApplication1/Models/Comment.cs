@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         public Guid CommentId { get; set; }
         
         public string TextComment { get; set; }
-        public int? MessageId { get; set; }
+        public Guid? Id { get; set; }
         public DateTime CurrentDateTime { get; set; }
         public Comment()
         {

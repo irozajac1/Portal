@@ -71,5 +71,6 @@ export class Literature {
 
 export class Schedule {
   public Id: string;
+  public Title: string;
   public Url: string;
 }

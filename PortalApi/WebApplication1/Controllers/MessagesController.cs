@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
 
         // POST: api/Messages/SendMessage
         [HttpPost("SendMessage")]
-        public IActionResult PostFiles([FromBody] LiteratureRequest request)
+        public IActionResult PostMessage([FromBody] MessageRequest request)
         {
             service.SendMessage(request);
             return Ok();

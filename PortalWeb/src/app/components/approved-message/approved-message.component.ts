@@ -28,7 +28,7 @@ export class ApprovedMessageComponent implements OnInit {
     });
   }
 
-  downloadFile(id: number){
+  downloadFile(id){
     this.service.downloadFile(id);
   }
 

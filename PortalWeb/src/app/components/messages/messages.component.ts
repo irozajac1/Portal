@@ -84,7 +84,7 @@ export class MessagesComponent implements OnInit {
     });
   }
 
-  downloadFile(id: number) {
+  downloadFile(id) {
     this.service.downloadFile(id);
   }
   openCommentDialog(MessageId: number): void {

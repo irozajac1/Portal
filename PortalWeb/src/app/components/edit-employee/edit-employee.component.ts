@@ -33,7 +33,6 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   editEmployee(id) {
-    console.log(this.recvData);
     return this.EmployeeService.updateEmployee(this.editEmployeeForm.value as Employee, id);
   }
 

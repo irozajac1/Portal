@@ -32,7 +32,7 @@ export class OpenMessageComponent implements OnInit {
     return this.addCommentForm.controls;
   }
 
-  downloadFile(id: number){
+  downloadFile(id){
     this.service.downloadFile(id);
     console.log("kliknuo");
   }

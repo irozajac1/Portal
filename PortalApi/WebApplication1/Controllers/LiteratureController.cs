@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Interface;
 using WebApplication1.Models;
+using WebApplication1.Models.Requests;
 
 namespace WebApplication1.Controllers
 {
@@ -26,6 +27,13 @@ namespace WebApplication1.Controllers
             return service.GetAll();
         }
 
+        // GET: api/Literature/literatureById
+        [HttpGet("literatureById")]
+        public async Task<ActionResult<Literature>> GetLiteratureById(Guid id)
+        {
+            return service.GetById(id);
+        }
+
         // GET: api/Literature/notapproved
         [HttpGet("notapproved")]
         public IActionResult GetNotApproved()
@@ -33,6 +41,28 @@ namespace WebApplication1.Controllers
             var literature = service.GetNotApproved();
 
             return Ok(literature);
+        }
+
+        //[HttpGet("{id}")]
+        public IActionResult Download(Guid id)
+        {
+            return service.DownloadFile(id);
+        }
+
+        // POST: api/Literature/SendLiterature
+        [HttpPost("SendLiterature")]
+        public IActionResult PostLiterature([FromBody] LiteratureRequest  request)
+        {
+            service.PostLiterature(request);
+            return Ok();
+        }
+
+        //DELETE : api/Literature/deleteLiterature
+        [HttpDelete("deleteLiterature")]
+        public IActionResult Delete(Guid id)
+        {
+            service.DeleteLiterature(id);
+            return Ok();
         }
     }
 }

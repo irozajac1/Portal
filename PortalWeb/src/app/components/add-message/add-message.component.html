@@ -38,15 +38,17 @@
 </form> -->
 
 <!--  *ngIf="getEmail == 'muhamed.skikic@mibo.ba'"-->
-<form [formGroup]="messageForm" class="example-form " (ngSubmit)="onSubmit(messageForm.value)" >
-    <mat-form-field class="selectedgroup" >
+<form [formGroup]="messageForm" class="example-form " (ngSubmit)="onSubmit(messageForm.value)">
+  <mat-form-field class="selectedgroup">
     <mat-label>Izaberite grupu</mat-label>
     <mat-select name="Group" matSelect formControlName="Group" required>
+      <mat-option value="uposlenici">Zaposlenici</mat-option>
       <mat-option value="prijedlozi">Razmjena prijedloga dobre prakse</mat-option>
-      <mat-option value="dokumentacija">Dokumentacija/Pravilnik firme</mat-option>
-      <mat-option value="uposlenici">Uposlenici</mat-option>
-      <mat-option *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" value="dokumentacija">Dokumentacija/Pravilnik firme</mat-option>
-      <mat-option *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" value="uposlenici">Uposlenici</mat-option>
+      <mat-option value="dokumentacija">Pravilnici</mat-option>
+      <mat-option value="literatura">Literatura</mat-option>
+      <mat-option value="novosti">Novosti</mat-option>
+      <mat-option value="raspored">Plan i raspored sale</mat-option>
+      <!-- <mat-option *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" value="dokumentacija">Dokumentacija/Pravilnik firme</mat-option> -->
     </mat-select>
     <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
   </mat-form-field>
@@ -81,10 +83,38 @@
   </mat-card>
 </form>
 
-
-<form [formGroup]="documentForm" class="example-form " (ngSubmit)="onSubmitDocument(documentForm.value)" *ngIf="messageForm.value.Group=='dokumentacija'" >
+<form [formGroup]="scheduleForm" class="example-form " (ngSubmit)="onSubmitSchedule(scheduleForm.value)"
+  *ngIf="messageForm.value.Group=='raspored'">
   <!-- <mat-form-field *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" class="selectedgroup" > -->
-  
+
+  <mat-card class="messagecontet">
+
+    <mat-form-field class="message-full-width" appearance="standard">
+      <mat-label>Unesite naziv</mat-label>
+      <input matInput placeholder="Naziv" formControlName="Title">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="message-full-width" appearance="standard">
+      <mat-label>Unesite link sastanka</mat-label>
+      <input matInput placeholder="Link" formControlName="Link">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
+    </mat-form-field>
+
+    <div class="sendmessagebtn">
+      <button mat-mini-fab color="white" matTooltip="Pošalji" type="submit">
+        <mat-icon aria-hidden="false" aria-label=" " class="sendicon">send</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</form>
+
+<form [formGroup]="documentForm" class="example-form " (ngSubmit)="onSubmitDocument(documentForm.value)"
+  *ngIf="messageForm.value.Group=='dokumentacija'">
+  <!-- <mat-form-field *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" class="selectedgroup" > -->
+
   <mat-card class="messagecontet">
     <mat-form-field class="message-full-width">
       <textarea matInput name="Title" formControlName="Title" placeholder="Napišite naslov dokumenta"
@@ -102,7 +132,7 @@
       <button class="btn">Uvezi datoteke</button>
       <input #file type="file" id="file" (change)="uploadDoc(file.files)">
       <div>
-        <span id="chips" *ngFor="let item of documentFile; let index = index" >
+        <span id="chips" *ngFor="let item of documentFile; let index = index">
           <mat-chip-list id="chip" class="no-wrap">
             <mat-chip><span>{{ item.name }}</span>
               <span id="closeIcon" (click)="removeDoc(documentFile)">
@@ -115,10 +145,9 @@
   </mat-card>
 </form>
 
-
-
-<form [formGroup]="employeeForm" class="example-form " (ngSubmit)="onSubmitEmployees(messageForm.value.Group)" *ngIf="messageForm.value.Group=='uposlenici'" >
-  <mat-card  class="messagecontet">
+<form [formGroup]="employeeForm" class="example-form " (ngSubmit)="onSubmitEmployees(employeeForm.value)"
+  *ngIf="messageForm.value.Group=='uposlenici'">
+  <mat-card class="messagecontet">
     <mat-form-field class="message-full-width" appearance="standard">
       <mat-label>Unesite ime</mat-label>
       <input matInput placeholder="Ime" formControlName="Firstname">
@@ -140,6 +169,12 @@
     </mat-form-field>
 
     <mat-form-field class="message-full-width" appearance="standard">
+      <mat-label>Datum početka radnog odnosa</mat-label>
+      <input matInput placeholder="1/7/2020" formControlName="StartDate" type="date" required>
+      <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="message-full-width" appearance="standard">
       <mat-label>Unesite telefon</mat-label>
       <input matInput placeholder="Tel" formControlName="Phone">
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -147,7 +182,7 @@
     </mat-form-field>
     <div class="upload-btn-wrapper">
       <button class="btn">Uvezi sliku</button>
-      <input #file type="file" id="file" (change)="uploadFileSave(file.files)">
+      <input #file formControlName="EmployeePicture" type="file" id="file" (change)="uploadFileSave(file.files)">
       <div>
         <!-- *ngFor="let item of ArrayOfFiles; let index = index" -->
         <span id="chips" *ngFor="let item of ArrayOfFiles; let index = index">
@@ -157,7 +192,7 @@
                 <fa-icon [icon]="faWindowClose" class="fa-lg"></fa-icon>
               </span></mat-chip>
           </mat-chip-list>
-          
+
         </span>
       </div>
     </div>
@@ -166,7 +201,7 @@
       <button mat-mini-fab color="white" matTooltip="Pošalji" type="submit">
         <mat-icon aria-hidden="false" aria-label=" " class="sendicon">send</mat-icon>
       </button>
-    </div> 
+    </div>
   </mat-card>
 
 </form>
