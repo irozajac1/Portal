@@ -89,16 +89,16 @@
 
   <mat-card class="messagecontet">
 
-    <mat-form-field class="message-full-width" appearance="standard">
+    <!-- <mat-form-field class="message-full-width" appearance="standard">
       <mat-label>Unesite naziv</mat-label>
       <input matInput placeholder="Naziv" formControlName="Title">
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
       <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field class="message-full-width" appearance="standard">
       <mat-label>Unesite link sastanka</mat-label>
-      <input matInput placeholder="Link" formControlName="Link">
+      <input matInput placeholder="Link" formControlName="Url">
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
       <mat-error *ngIf="messageForm.invalid">*Polje je obavezno</mat-error>
     </mat-form-field>
@@ -109,6 +109,63 @@
       </button>
     </div>
   </mat-card>
+</form>
+
+<form [formGroup]="literatureForm" class="example-form " (ngSubmit)="onSubmitLiterature(literatureForm.value)"
+  *ngIf="messageForm.value.Group=='literatura'">
+  <!-- <mat-form-field *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" class="selectedgroup" > -->
+
+  <mat-card *ngIf="messageForm.value.Group=='literatura'" class="messagecontet">
+    <mat-form-field class="message-full-width" appearance="standard">
+      <input matInput placeholder="Naziv" formControlName="Title">
+    </mat-form-field>
+
+    <mat-form-field class="message-full-width" appearance="standard">
+      <input matInput placeholder="Link" formControlName="Link">
+    </mat-form-field>
+
+    <div class="upload-btn-wrapper">
+      <button class="btn">Uvezi datoteke</button>
+      <input #file type="file" id="file" (change)="uploadFileSave(file.files)">
+      <div>
+        <span id="chips" *ngFor="let item of ArrayOfFiles; let index = index">
+          <mat-chip-list id="chip" class="no-wrap">
+            <mat-chip><span>{{ item.name }}</span>
+              <span id="closeIcon" (click)="remove(item)">
+                <fa-icon [icon]="faWindowClose" class="fa-lg"></fa-icon>
+              </span></mat-chip>
+          </mat-chip-list>
+        </span>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="sendmessagebtn" style="margin-top: 10px;"> 
+    <button mat-mini-fab color="white" matTooltip="Pošalji" type="submit">
+      <mat-icon aria-hidden="false" aria-label=" " class="sendicon">send</mat-icon>
+    </button>
+  </div>
+</form>
+
+<form [formGroup]="newsForm" class="example-form " (ngSubmit)="onSubmitNews(newsForm.value)"
+  *ngIf="messageForm.value.Group=='novosti'">
+  <!-- <mat-form-field *ngIf="getEmail == 'muhamed.skikic@mibo.ba'" class="selectedgroup" > -->
+
+  <mat-card *ngIf="messageForm.value.Group=='novosti'" class="messagecontet">
+    <mat-form-field class="message-full-width" appearance="standard">
+      <input matInput placeholder="Sadržaj" formControlName="Content">
+    </mat-form-field>
+
+    <mat-form-field class="message-full-width" appearance="standard">
+      <input matInput placeholder="Datum" type="date" formControlName="DateOfEvent">
+    </mat-form-field>
+  </mat-card>
+
+  <div class="sendmessagebtn" style="margin-top: 10px;"> 
+    <button mat-mini-fab color="white" matTooltip="Pošalji" type="submit">
+      <mat-icon aria-hidden="false" aria-label=" " class="sendicon">send</mat-icon>
+    </button>
+  </div>
 </form>
 
 <form [formGroup]="documentForm" class="example-form " (ngSubmit)="onSubmitDocument(documentForm.value)"

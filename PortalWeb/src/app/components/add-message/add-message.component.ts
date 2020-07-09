@@ -2,11 +2,16 @@ import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { MatDialogRef } from "@angular/material";
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { DetailService } from "../../shared/detail.service";
+import { LiteratureService } from "../../shared/literature.service";
+import { NewsService } from "../../shared/news.service";
+
+import { ScheduleService } from '../../shared/schedule.service';
 import { ToastrService } from "ngx-toastr";
 import { HttpEventType, HttpClient } from "@angular/common/http";
 
 import { faWindowClose } from "node_modules/@fortawesome/free-solid-svg-icons";
 import { EmployeeService } from '../../shared/employee.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: "app-add-message",
   templateUrl: "./add-message.component.html",
@@ -18,6 +23,8 @@ export class AddMessageComponent implements OnInit {
   documentForm: FormGroup;
   employeeForm: FormGroup;
   scheduleForm: FormGroup;
+  literatureForm: FormGroup;
+  newsForm: FormGroup;
   faWindowClose = faWindowClose;
 
   documentFile: File;
@@ -31,12 +38,16 @@ export class AddMessageComponent implements OnInit {
     public dialogRef: MatDialogRef<AddMessageComponent>,
     public service: DetailService,
     public serviceEmp: EmployeeService,
+    public serviceLite: LiteratureService,
+    public serviceNews: NewsService,
+    public serviceSch: ScheduleService,
     public toastr: ToastrService,
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.resetForm();
+
     this.messageForm = this.formBuilder.group({
       TextMessage: ["", Validators.required],
       Group: ["", Validators.required],
@@ -60,7 +71,17 @@ export class AddMessageComponent implements OnInit {
 
     this.scheduleForm = this.formBuilder.group({
       Title: ["", Validators.required],
-      Link: ["", Validators.required]
+      Url: ["", Validators.required]
+    });
+
+    this.literatureForm = this.formBuilder.group({
+      Title: ["", Validators.required],
+      Link: ["", Validators.required],
+      AttachmentIds: [],
+    });
+    this.newsForm = this.formBuilder.group({
+      Content: ["", Validators.required],
+      DateOfEvent: ["", Validators.required],
     });
 
   }
@@ -136,11 +157,11 @@ export class AddMessageComponent implements OnInit {
 
 
   onSubmitSchedule() {
-    this.submitted = true;
-    if (this.scheduleForm.invalid) {
-      return;
-    }
-    this.service.postSchedule(this.scheduleForm.value).subscribe(res => {
+    // this.submitted = true;
+    // if (this.scheduleForm.invalid) {
+    //   return;
+    // }
+    this.serviceSch.postSchedule(this.scheduleForm.value).subscribe(res => {
       this.clearDocumentForm();
       this.toastr.success("Uspješno");
       this.resetForm();
@@ -151,40 +172,35 @@ export class AddMessageComponent implements OnInit {
         this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
       });
   }
-  // onSubmit(type: string) {
-  //   this.submitted = true;
-  //   if (this.messageForm.invalid || this.employeeForm.invalid) {
-  //     return;
-  //   }
-
-  //   console.log(type);
-
-  //   switch (type) {
-  //     case 'prijedlozi': {
-  //       this.service.postMessageDetails(this.messageForm.value, this.ArrayOfFiles).subscribe(res => {
-  //         this.clearMessageForm();
-  //         this.toastr.success("Uspješno");
-  //         this.resetForm();
-  //         this.service.refreshMessageList();
-  //         this.closeClick();
-  //       },
-  //         err => {
-  //           this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
-  //         });
-  //       break;
-  //     }
-  //     case 'dokumentacija': {
-
-  //       break;
-  //     }
-  //     default: {
-  //       break;
-  //     }
-  //   }
-  // }
 
   onSubmitEmployees() {
     this.serviceEmp.postUser(this.employeeForm.value, this.documentFile).subscribe(res => {
+      this.clearMessageForm();
+      this.toastr.success("Uspješno");
+      this.resetForm();
+      this.service.refreshMessageList();
+      this.closeClick();
+    },
+      err => {
+        this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
+      });
+  }
+
+  onSubmitLiterature() {
+    this.serviceLite.postLiterature(this.literatureForm.value, this.ArrayOfFiles).subscribe(res => {
+      this.clearMessageForm();
+      this.toastr.success("Uspješno");
+      this.resetForm();
+      this.service.refreshMessageList();
+      this.closeClick();
+    },
+      err => {
+        this.toastr.error("Pokušajte ponovo", "Došlo je do greške");
+      });
+  }
+
+  onSubmitNews() {
+    this.serviceNews.postNews(this.newsForm.value).subscribe(res => {
       this.clearMessageForm();
       this.toastr.success("Uspješno");
       this.resetForm();

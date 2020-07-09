@@ -257,6 +257,23 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Abstractions.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.AzureAD.UI/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "2.2.0",
+          "Microsoft.AspNetCore.Mvc": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll": {},
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll": {},
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Cookies/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -4805,6 +4822,20 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Abstractions.xml",
         "microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.AzureAD.UI/2.2.0": {
+      "sha512": "v+5Cli6I6GBYXXk1nPViReNoU0oS/U87e2bMvsVVPDICHiyc1vDvWpdJ1Z9Mu1Sf9ONXNxjZKQ7NQTLhiUdZzg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.azuread.ui/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.xml",
+        "microsoft.aspnetcore.authentication.azuread.ui.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.azuread.ui.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Cookies/2.2.0": {
@@ -12925,6 +12956,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
+      "Microsoft.AspNetCore.Authentication.AzureAD.UI >= 2.2.0",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 2.2.0",
@@ -12978,6 +13010,10 @@
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "Microsoft.AspNetCore.Authentication.AzureAD.UI": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.AspNetCore.Cors": {
             "target": "Package",

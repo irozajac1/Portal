@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
 
         // POST: api/Literature/SendLiterature
         [HttpPost("SendLiterature")]
-        public IActionResult PostLiterature([FromBody] LiteratureRequest  request)
+        public IActionResult PostLiterature([FromForm] LiteratureRequest  request)
         {
             service.PostLiterature(request);
             return Ok();

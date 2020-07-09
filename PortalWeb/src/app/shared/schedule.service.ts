@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Schedule } from './message-detail.model';
+import { Schedule, Meetings } from './message-detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,16 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  getSchedule(){
-    return this.http.get(this.rootURL + "/Meeting");
+  getSchedule() {
+    return this.http.get(this.rootURL + "/Meeting/GetMeetings");
   }
 
-  deleteSchedule(id){
+  deleteSchedule(id) {
     return this.http.delete(this.rootURL + "/Meeting/DeleteLink", id);
+  }
+
+  postSchedule(schedule: Meetings): Observable<any> {
+    console.log(schedule)
+    return this.http.post(this.rootURL + "/Meeting/PostLink", schedule);
   }
 }

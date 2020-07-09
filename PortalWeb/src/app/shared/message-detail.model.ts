@@ -59,11 +59,11 @@ export class Documentation {
 }
 
 export class Literature {
-  public Id: string;
+  public Id?: string;
   public Title: string;
   public Group: string;
-  public Link: string;
-  public Attachment: AttachmentList;
+  public Link?: string;
+  public Files?: AttachmentList;
   public Email: string;
   public IsApproved: boolean;
   public IsDeleted: boolean;
@@ -71,6 +71,17 @@ export class Literature {
 
 export class Schedule {
   public Id: string;
-  public Title: string;
   public Url: string;
+}
+
+export class Meetings {
+  public Id: string;
+  public Url: string;
+}
+
+export class News {
+  public Id?: string;
+  public Content: string;
+  public DateNow: Date;
+  public DateOfEvent: Date;
 }

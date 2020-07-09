@@ -47,6 +47,8 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { AboutComponent } from './components/about/about.component';
 import { LiteratureComponent } from './components/literature/literature.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { EditLiteratureComponent } from './components/edit-literature/edit-literature.component';
+import { EditNewsComponent } from './components/edit-news/edit-news.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
     ScheduleComponent,
     AboutComponent,
     LiteratureComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    EditLiteratureComponent,
+    EditNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,8 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
     CommentsComponent,
     ApprovedMessageComponent,
     OpenMessageComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    EditLiteratureComponent
   ],
   providers: [
     DetailService,

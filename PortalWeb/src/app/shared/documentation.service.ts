@@ -17,6 +17,10 @@ export class DocumentationService {
     return this.http.get(this.rootURL + "/Documentation");
   }
 
+  addDocument(){
+        
+  }
+
   deleteDocument2(id) {
     return this.http.delete(this.rootURL + "/Documentation/deleteDoc/" + id).subscribe();
   }

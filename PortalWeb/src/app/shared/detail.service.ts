@@ -40,7 +40,7 @@ export class DetailService {
 
   postdocument(formDataDocument: Document, file: File): Observable<any> {
     var formData: FormData = new FormData();
-    console.log(file);
+
     formData.append("Title", formDataDocument.Title);
     if (file[0] != null) {
       formData.append("Attachment", file[0], file[0].name);
@@ -50,7 +50,6 @@ export class DetailService {
   }
 
   postSchedule(formDataDocument): Observable<any> {
-    console.log(formDataDocument.value)
     this.schedule.Url = formDataDocument.Link;
     this.schedule.Title = formDataDocument.Title;
     return this.http.post(this.rootURL + "/Meeting/PostLink", this.schedule);

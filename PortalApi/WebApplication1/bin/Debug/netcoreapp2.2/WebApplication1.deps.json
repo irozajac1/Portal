@@ -25,6 +25,7 @@
       "WebApplication1/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.AzureAD.UI": "2.2.0",
           "Microsoft.AspNetCore.Cors": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.EntityFrameworkCore": "2.2.0",
@@ -36,6 +37,28 @@
         },
         "compile": {
           "WebApplication1.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.AzureAD.UI/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "2.2.0",
+          "Microsoft.AspNetCore.Mvc": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18316"
+          },
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18316"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll": {},
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.AzureAD.UI.dll": {}
         }
       },
       "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
@@ -3545,6 +3568,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.AzureAD.UI/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v+5Cli6I6GBYXXk1nPViReNoU0oS/U87e2bMvsVVPDICHiyc1vDvWpdJ1Z9Mu1Sf9ONXNxjZKQ7NQTLhiUdZzg==",
+      "path": "microsoft.aspnetcore.authentication.azuread.ui/2.2.0",
+      "hashPath": "microsoft.aspnetcore.authentication.azuread.ui.2.2.0.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
       "type": "package",
